@@ -34,6 +34,7 @@
 #include "rsa_priv_key.hpp"
 
 #include <boost/multiprecision/gmp.hpp>
+#include <boost/multiprecision/integer.hpp>
 #include <iostream>
 
 namespace basics { 
@@ -75,9 +76,12 @@ private:
       // Calculons l'indicatrice d'Euler de n
       phi_ = (p_ - 1)* (q_ - 1);
       
-      // Calculons e, premier avec phi(n) (en fait, on triche, on
-      // prend juste un autre premier ! hihi)
-      e_ = pnrg.getPrime();
+      // Calculons e, premier avec phi(n) (il faudrait lire pas mal de
+      // littérature pour faire un choix rationel ...)
+      e_ = 65537;
+      while (gcd(e_, phi_) != 1) {
+         e_ += 2;
+      }
       
       if (e_ == 0) {
          std::cout << "Impossible de tirer un e premier avec phi(n)." << std::endl;

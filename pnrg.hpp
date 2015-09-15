@@ -50,7 +50,7 @@ public:
    int_type getPrime() 
    {
       mt11213b base_gen(clock());
-      independent_bits_engine<mt11213b, RSA_LENGTH, int_type> gen(base_gen);
+      independent_bits_engine<mt11213b, RSA_LENGTH/2, int_type> gen(base_gen);
       mt19937 gen2(clock());
       
       /* Voir si le test en plus serait utile ? De toutes les façons, il fait exploser le */

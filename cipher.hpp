@@ -45,11 +45,15 @@ private:
 
    std::string crypt_prim_str(std::string message) 
    {
+      std::cout << "  Ciphering : " << message << std::endl;
+
       std::string cipher_text = data_prim_.i2osp(crypt_prim_.rsaep(data_prim_.os2ip(message)));
 
       if (cipher_text.size() != message.size()) {
          std::cout << "cipher_text size different from message size" << std::endl;
       }
+
+      std::cout << "cipher text : " << cipher_text << std::endl;
 
       return cipher_text;
    }

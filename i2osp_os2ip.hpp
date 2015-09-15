@@ -51,6 +51,7 @@ public:
    {
       if (message_part.size() >= (unsigned) max_message_length_) {
          std::cout << "message part too large" << std::endl;
+         return -1;
       }
       
       int_type message_part_int = 0;
@@ -66,6 +67,12 @@ public:
    {
       if (message_part >> key_length_ > 0) {
          std::cout << "integer too large (CMB)" << std::endl;
+         std::cout << "message : " << message_part << std::endl;
+         std::cout << "key_length : " << key_length_ << std::endl;
+         int_type zob = message_part >> 1022;
+         std::cout << "message_part >> key_length : " << zob << std::endl;
+         
+         return "";
       }
       
       std::string message_part_str = "";

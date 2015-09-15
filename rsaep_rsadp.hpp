@@ -72,11 +72,15 @@ public:
 
    int_type rsaep(int_type message) 
    {
+      std::cout << "    ciphering : " << message << std::endl;
+      
       Rsa_pub_key key = keys_.getPublicKey();
       
       if (message < 0 || message >= key.getModulus()) {
          std::cout << "message representative out of range" << std::endl;
       }
+
+      std::cout << "    computing : ( " << message << " exp " << key.getExponent() << " ) mod " << key.getModulus() << std::endl;
       
       // RSA : c = m^e mod n
       int_type c = powModulus(message, key.getExponent(), key.getModulus());
