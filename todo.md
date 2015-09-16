@@ -1,7 +1,5 @@
 # Todo
-
 ## C++
-
 - [ ] switch to exception instead of ugly std::cout's
 - [ ] see if miller_rabin test can generate numbers with dynamic size
 - [ ] work on const-correctness
