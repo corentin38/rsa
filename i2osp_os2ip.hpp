@@ -30,6 +30,8 @@
 #include <iostream>
 #include <cmath>
 #include <boost/multiprecision/gmp.hpp>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace basics {
@@ -38,20 +40,18 @@ typedef mpz_int int_type;
 
 class I2osp_os2ip 
 {
-private:
-   int key_length_;
-   int max_message_length_;
-
 public:
-   I2osp_os2ip(int key_length) : key_length_(key_length), max_message_length_(key_length / 8)
+   I2osp_os2ip(unsigned key_length) : key_length_(key_length), max_message_length_(key_length / 8)
    {
    }
    
    int_type os2ip(std::string message_part) 
    {
-      if (message_part.size() >= (unsigned) max_message_length_) {
-         std::cout << "message part too large" << std::endl;
-         return -1;
+      if (message_part.size() > (unsigned) max_message_length_) {
+         std::stringstream err;
+         err << "message part too large max_size=" << max_message_length_ << 
+            " size=" << message_part.size() << " str=\"" << message_part << "\"";
+         throw std::runtime_error(err.str());
       }
       
       int_type message_part_int = 0;
@@ -66,20 +66,16 @@ public:
    std::string i2osp(int_type message_part) 
    {
       if (message_part >> key_length_ > 0) {
-         std::cout << "integer too large (CMB)" << std::endl;
-         std::cout << "message : " << message_part << std::endl;
-         std::cout << "key_length : " << key_length_ << std::endl;
-         int_type zob = message_part >> 1022;
-         std::cout << "message_part >> key_length : " << zob << std::endl;
-         
-         return "";
+         std::stringstream err;
+         err << "integer too large (CMB)";
+         throw std::runtime_error(err.str());
       }
       
       std::string message_part_str = "";
       int_type current_order(message_part);
       int_type current_char = 0;
 
-      for (int i=0; i<key_length_; i++) {
+      for (unsigned i=0; i<key_length_; i++) {
          if (current_order == 0) break;
          current_char = current_order % 256;
          message_part_str = char(current_char.convert_to<int>()) + message_part_str;
@@ -88,6 +84,10 @@ public:
       
       return message_part_str;
    }
+
+private:
+   unsigned key_length_;
+   unsigned max_message_length_;
 
 };
 

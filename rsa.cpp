@@ -32,27 +32,36 @@
 
 #include <iostream>
 #include <string>
-
+#include <stdexcept>
+#include <sstream>
 
 int main()
 {
-   std::string message = "Hello woooorld !";
+   std::string message = "Hello woooorld !"
+      "Hello woooorld !"
+      "Hello woooorld !"
+      "Hello woooorld !"
+      "Hello woooorld !"
+      "Hello woooorld !"
+      "Hello woooorld !"
+      "Hello woooorld !"; // 128 char message
    std::cout << "Message clair : " << message << std::endl;
 
    // Création des cléfs
    basics::Keys keys;
    if (!keys.isOperational()) {
-      std::cout << "Key is not operational : " << std::endl;
-      std::cout << keys << std::endl;
-      return 1;
+      std::stringstream err;
+      err << "Key is not operational : \n";
+      err << keys << "\n";
+      throw std::runtime_error(err.str());
    }
 
    basics::I2osp_os2ip data_prim(keys.getKeyLength());
    basics::Rsaep_rsadp crypt_prim(keys);
 
    // Chiffrement
-   basics::Cipher cipher((unsigned) keys.getKeyLength(), data_prim, crypt_prim);
-   std::string s3cr3t = cipher.cipher(message);
+   basics::Cipher my_cipher(keys.getKeyLength(), data_prim, crypt_prim);
+   std::string s3cr3t = my_cipher.cipher(message);
    
    std::cout << "Message chiffré : " << s3cr3t << std::endl;
 

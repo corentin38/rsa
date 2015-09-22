@@ -34,6 +34,8 @@
 #include <cmath>
 #include <boost/multiprecision/gmp.hpp>
 #include <string>
+#include <stdexcept>
+#include <sstream>
 
 namespace basics {
 
@@ -51,8 +53,9 @@ private:
       if (exp == 0) return 1;
       if (base == 0) return 0;
       if (mod <= 0) {
-         std::cout << "null or negative modulus" << std::endl;
-         return -1;
+         std::stringstream err;
+         err << "null or negative modulus: " << mod;
+         throw std::runtime_error(err.str());
       }
 
       int_type acc = base;
@@ -77,7 +80,9 @@ public:
       Rsa_pub_key key = keys_.getPublicKey();
       
       if (message < 0 || message >= key.getModulus()) {
-         std::cout << "message representative out of range" << std::endl;
+         std::stringstream err;
+         err << "message representative out of range";
+         throw std::runtime_error(err.str());
       }
 
       std::cout << "    computing : ( " << message << " exp " << key.getExponent() << " ) mod " << key.getModulus() << std::endl;
@@ -93,7 +98,9 @@ public:
       Rsa_priv_key key = keys_.getPrivateKey();
       
       if (cipher_text < 0 || cipher_text >= key.getModulus()) {
-         std::cout << "ciphertext representative out of range" << std::endl;
+         std::stringstream err;
+         err << "ciphertext representative out of range";
+         throw std::runtime_error(err.str());
       }
       
       // RSA : m = c^d mod n

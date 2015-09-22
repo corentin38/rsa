@@ -36,6 +36,8 @@
 #include <boost/multiprecision/gmp.hpp>
 #include <boost/multiprecision/integer.hpp>
 #include <iostream>
+#include <stdexcept>
+#include <sstream>
 
 namespace basics { 
 
@@ -82,19 +84,15 @@ private:
       while (gcd(e_, phi_) != 1) {
          e_ += 2;
       }
-      
-      if (e_ == 0) {
-         std::cout << "Impossible de tirer un e premier avec phi(n)." << std::endl;
-         return;
-      }
   
       // On calcule d, inverse de e modulo phi(n)
       d_ = inverse(e_, phi_);
 
       int_type prod = (e_ * d_) % phi_;
       if ( prod != 1) {
-         std::cout << "Mauvais inverse d ! prod=" << prod << std::endl;
-         return;
+         std::stringstream err;
+         err << "Mauvais inverse d ! prod=" << prod << std::endl;
+         throw std::runtime_error(err.str());
       }
 
       // Tout s'est bien passé !
@@ -151,7 +149,7 @@ public:
       return key;
    }
 
-   int getKeyLength() 
+   unsigned getKeyLength() 
    {
       return RSA_LENGTH;
    }
