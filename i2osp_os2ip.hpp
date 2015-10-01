@@ -33,6 +33,9 @@
 #include <stdexcept>
 #include <sstream>
 
+#include "keys.hpp"
+
+#define CHAR_SIZE 8
 
 namespace basics {
 
@@ -41,7 +44,7 @@ typedef mpz_int int_type;
 class I2osp_os2ip 
 {
 public:
-   I2osp_os2ip(unsigned key_length) : key_length_(key_length), max_message_length_(key_length / 8)
+   I2osp_os2ip(Keys keys) : keys_( keys ), key_length_( keys.getKeyLength() ), max_message_length_( keys.getKeyLength() / CHAR_SIZE - 1 )
    {
    }
    
@@ -86,6 +89,7 @@ public:
    }
 
 private:
+   Keys keys_;
    unsigned key_length_;
    unsigned max_message_length_;
 

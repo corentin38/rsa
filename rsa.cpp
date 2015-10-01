@@ -56,11 +56,11 @@ int main()
       throw std::runtime_error(err.str());
    }
 
-   basics::I2osp_os2ip data_prim(keys.getKeyLength());
+   basics::I2osp_os2ip data_prim(keys);
    basics::Rsaep_rsadp crypt_prim(keys);
 
    // Chiffrement
-   basics::Cipher my_cipher(keys.getKeyLength(), data_prim, crypt_prim);
+   basics::Cipher my_cipher(keys, data_prim, crypt_prim);
    std::string s3cr3t = my_cipher.cipher(message);
    
    std::cout << "Message chiffré : " << s3cr3t << std::endl;
