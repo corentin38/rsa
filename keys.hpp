@@ -28,6 +28,7 @@
 #define _KEYS_HPP_
 
 #define RSA_LENGTH 512
+#define CHAR_SIZE 8
 
 #include "pnrg.hpp"
 #include "rsa_pub_key.hpp"

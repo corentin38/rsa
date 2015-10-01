@@ -35,6 +35,22 @@
 #include <stdexcept>
 #include <sstream>
 
+void print_cipher_text(std::vector< int_type > cipher_elements) 
+{
+   std::cout << "Message chiffré : \n\n";
+   std::cout << "-- CIPHERTEXT BEGIN --\n";
+
+   for (int_type element : cipher_elements) {
+      std::stringstream cipher_text_stream;
+      cipher_text_stream << std::hex << element;
+      std::string cipher_text = cipher_text_stream.str();
+
+      std::cout << cipher_text << "\n";
+   }
+
+   std::cout << "-- CIPHERTEXT END --\n";
+}
+
 int main()
 {
    std::string message = "Hello woooorld !"
@@ -56,22 +72,16 @@ int main()
       throw std::runtime_error(err.str());
    }
 
-   basics::I2osp_os2ip data_prim(keys);
-   basics::Rsaep_rsadp crypt_prim(keys);
+   basics::I2osp_os2ip data_prim();
+   basics::Rsaep_rsadp crypt_prim();
 
    // Chiffrement
-   basics::Cipher my_cipher(keys, data_prim, crypt_prim);
-   std::string s3cr3t = my_cipher.cipher(message);
-   
-   std::cout << "Message chiffré : " << s3cr3t << std::endl;
+   basics::Cipher my_cipher(data_prim, crypt_prim);
+   std::vector< int_type > s3cr3t = my_cipher.cipher(keys.getPubKey(), message);
+   print_cipher_text(s3cr3t);
 
-   // Test des primitives de conversion
-//   basics::I2osp_os2ip prim(1024);
-//   basics::int_type code = prim.os2ip(message);
-//   std::cout << "Encoded message with os2ip: " << code << std::endl;
-//   std::string decode = prim.i2osp(code);
-//   std::cout << "Decoded message with i2osp: " << decode << std::endl;
-//   
+
+   
    
 
 

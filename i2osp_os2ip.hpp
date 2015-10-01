@@ -35,8 +35,6 @@
 
 #include "keys.hpp"
 
-#define CHAR_SIZE 8
-
 namespace basics {
 
 typedef mpz_int int_type;
@@ -44,15 +42,15 @@ typedef mpz_int int_type;
 class I2osp_os2ip 
 {
 public:
-   I2osp_os2ip(Keys keys) : keys_( keys ), key_length_( keys.getKeyLength() ), max_message_length_( keys.getKeyLength() / CHAR_SIZE - 1 )
+   I2osp_os2ip()
    {
    }
    
-   int_type os2ip(std::string message_part) 
+   int_type os2ip(Rsa_pub_key pubkey, std::string message_part) 
    {
-      if (message_part.size() > (unsigned) max_message_length_) {
+      if (message_part.size() > pubkey.getMaxMessageLength()) {
          std::stringstream err;
-         err << "message part too large max_size=" << max_message_length_ << 
+         err << "message part too large max_size=" << pubkey.getMaxMessageLength() << 
             " size=" << message_part.size() << " str=\"" << message_part << "\"";
          throw std::runtime_error(err.str());
       }
@@ -66,9 +64,11 @@ public:
       return message_part_int;
    }
    
-   std::string i2osp(int_type message_part) 
+   std::string i2osp(Rsa_priv_key privkey, int_type message_part) 
    {
-      if (message_part >> key_length_ > 0) {
+      unsigned key_length = privkey.getRsaPrivKey();
+
+      if (message_part >> key_length > 0) {
          std::stringstream err;
          err << "integer too large (CMB)";
          throw std::runtime_error(err.str());
@@ -78,7 +78,7 @@ public:
       int_type current_order(message_part);
       int_type current_char = 0;
 
-      for (unsigned i=0; i<key_length_; i++) {
+      for (unsigned i=0; i<key_length; i++) {
          if (current_order == 0) break;
          current_char = current_order % 256;
          message_part_str = char(current_char.convert_to<int>()) + message_part_str;
@@ -88,10 +88,6 @@ public:
       return message_part_str;
    }
 
-private:
-   Keys keys_;
-   unsigned key_length_;
-   unsigned max_message_length_;
 
 };
 

@@ -28,6 +28,7 @@
 #define _RSA_PUB_KEY_HPP_
 
 #include <boost/multiprecision/gmp.hpp>
+#include "keys.hpp"
 
 namespace basics { 
 
@@ -37,12 +38,11 @@ typedef mpz_int int_type;
 
 class Rsa_pub_key 
 {
-private:
-   int_type n_;
-   int_type e_;
-   
 public:
-   Rsa_pub_key(int_type n, int_type e) : n_(n), e_(e) 
+   Rsa_pub_key(unsigned rsa_key_length, int_type n, int_type e) : 
+      n_(n), e_(e),
+      rsa_key_length_(rsa_key_length),
+      max_message_length_(rsa_key_length / CHAR_SIZE - 1) 
    {
    }
    
@@ -55,6 +55,23 @@ public:
    {
       return e_;
    }
+
+   unsigned getRsaKeyLength() 
+   {
+      return rsa_key_length;
+   }
+   
+   unsigned getMaxMessageLength() 
+   {
+      return max_message_length_;
+   }
+   
+private:
+   int_type n_;
+   int_type e_;
+
+   unsigned rsa_key_length_;
+   unsigned max_message_length_;
    
 };
 

@@ -45,9 +45,44 @@ typedef mpz_int int_type;
 
 class Rsaep_rsadp {
 
-private:
-   Keys keys_;
+public:
+   Rsaep_rsadp()
+   {
+   }
 
+   int_type rsaep(Rsa_pub_key pubkey, int_type message) 
+   {
+      std::cout << "    ciphering : " << message << std::endl;
+      
+      if (message < 0 || message >= pubkey.getModulus()) {
+         std::stringstream err;
+         err << "message representative out of range";
+         throw std::runtime_error(err.str());
+      }
+
+      std::cout << "    computing : ( " << message << " exp " << pubkey.getExponent() << " ) mod " << pubkey.getModulus() << std::endl;
+      
+      // RSA : c = m^e mod n
+      int_type c = powModulus(message, pubkey.getExponent(), pubkey.getModulus());
+
+      return c;
+   }
+   
+   int_type rsadp(Rsa_priv_key privkey, int_type cipher_text) 
+   {
+      if (cipher_text < 0 || cipher_text >= privkey.getModulus()) {
+         std::stringstream err;
+         err << "ciphertext representative out of range";
+         throw std::runtime_error(err.str());
+      }
+      
+      // RSA : m = c^d mod n
+      int_type m = powModulus(cipher_text, privkey.getExponent(), privkey.getModulus());
+
+      return m;
+   }
+   
+private:
    int_type powModulus(int_type base, int_type exp, int_type mod) 
    {
       if (exp == 0) return 1;
@@ -65,50 +100,7 @@ private:
       }
       
       return acc;
-   }
-   
-   
-public:
-   Rsaep_rsadp(Keys keys) : keys_(keys)
-   {
-   }
-
-   int_type rsaep(int_type message) 
-   {
-      std::cout << "    ciphering : " << message << std::endl;
-      
-      Rsa_pub_key key = keys_.getPublicKey();
-      
-      if (message < 0 || message >= key.getModulus()) {
-         std::stringstream err;
-         err << "message representative out of range";
-         throw std::runtime_error(err.str());
-      }
-
-      std::cout << "    computing : ( " << message << " exp " << key.getExponent() << " ) mod " << key.getModulus() << std::endl;
-      
-      // RSA : c = m^e mod n
-      int_type c = powModulus(message, key.getExponent(), key.getModulus());
-
-      return c;
-   }
-   
-   int_type rsadp(int_type cipher_text) 
-   {
-      Rsa_priv_key key = keys_.getPrivateKey();
-      
-      if (cipher_text < 0 || cipher_text >= key.getModulus()) {
-         std::stringstream err;
-         err << "ciphertext representative out of range";
-         throw std::runtime_error(err.str());
-      }
-      
-      // RSA : m = c^d mod n
-      int_type m = powModulus(cipher_text, key.getExponent(), key.getModulus());
-
-      return m;
-   }
-   
+   }   
    
 };
 

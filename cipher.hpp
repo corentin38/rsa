@@ -36,9 +36,6 @@
 
 namespace basics {
 
-#define CIPHERTEXT_BEGIN "-- CIPHERTEXT BEGIN --"
-#define CIPHERTEXT_END "-- CIPHERTEXT END --"
-
 class Cipher {
    
 public:
@@ -51,8 +48,10 @@ public:
    {
    }
    
-   std::string cipher(std::string message) 
+   std::vector< int_type > cipher(Rsa_pub_key pubkey, std::string message) 
    {
+      std::vector< int_type > cipher_elements;
+
       std::string cipher_text = CIPHERTEXT_BEGIN;
       std::string message_part = message;
 
@@ -60,77 +59,47 @@ public:
          std::string message_substring = message_part.substr(0, message_length_);
          message_part = message_part.substr(message_length_);
          
-         cipher_text += "\n" + crypt_prim_str(message_substring);
+         cipher_elements.push_back(crypt_prim_str(pubkey, message_substring));
       }
       
-      cipher_text += "\n" + crypt_prim_str(message_part);
+      cipher_text += "\n" + crypt_prim_str(pubkey, message_part);
       cipher_text += "\n";
       cipher_text += CIPHERTEXT_END;
    
       return cipher_text;
    }
 
-   std::string decipher(std::string cipher_text) 
+   std::string decipher(Rsa_priv_key privkey, std::vector< int_type > cipher_elements) 
    {
-      std::string message = "";
-      std::string cipher_text_substring = cipher_text;
+      std::streamstring msgstream;
 
-      while(cipher_text_substring.size() >= message_length_) {
-         std::string cipher_text_part = cipher_text_substring.substr(0, message_length_);
-         cipher_text_substring = cipher_text_substring.substr(message_length_);
-         
-         message += decrypt_prim_str(cipher_text_part);
+      for (int_type element : cipher_elements) {
+         msgstream << decrypt_prim_str(element);
       }
-      
-      message += decrypt_prim_str(cipher_text_substring);
-   
-      return message;
+
+      return msgstream.str();
    }
    
 
 private:
    I2osp_os2ip data_prim_;
    Rsaep_rsadp crypt_prim_;
-   
-   unsigned key_length_;
-   unsigned message_length_;
-   unsigned cipher_text_hexadecimal_length_;
-   
 
-   std::string crypt_prim_str(std::string message) 
+   int_type crypt_prim_str(Rsa_pub_key pubkey, std::string message) 
    {
       std::cout << "  Ciphering : " << message << "\n";
 
-      int_type cipher_int = crypt_prim_.rsaep(data_prim_.os2ip(message));
-      
-      std::stringstream cipher_text_stream;
-      cipher_text_stream << std::hex << cipher_int;
-      std::string cipher_text = cipher_text_stream.str();
-
-      // HEX number takes two digits for each char
-      if (cipher_text.size() > cipher_text_hexadecimal_length_) {
-         std::stringstream err;
-         err << "Ciphertext length in hexadecimal is too wide: " << cipher_text << "\n";
-         throw std::runtime_error(err.str());
-      }
-      
-      while (cipher_text.size() < cipher_text_hexadecimal_length_) {
-         cipher_text = "0" + cipher_text;
-      }   
-
-      std::cout << "  Ciphertext computed as hexa: " << cipher_text << "\n";
+      int_type message_int = data_prim_.os2ip(pubkey, message);
+      int_type cipher_int = crypt_prim_.rsaep(pubkey, message_int);
 
       return cipher_text;
    }
    
-   std::string decrypt_prim_str(std::string cipher_text) 
+   std::string decrypt_prim_str(Rsa_priv_key privkey, int_type cipher_text) 
    {
-      std::string message = data_prim_.i2osp(crypt_prim_.rsadp(data_prim_.os2ip(cipher_text)));
+      int_type message_int = crypt_prim_.rsadp(privkey, cipher_text);
+      std::string message = data_prim_.i2osp(privkey, message_int);
       
-      if (cipher_text.size() != message.size()) {
-         std::cout << "cipher_text size different from message size" << std::endl;
-      }
-
       return message;      
    }
    
