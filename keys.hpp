@@ -140,13 +140,13 @@ public:
 
    Rsa_pub_key getPublicKey() 
    {
-      Rsa_pub_key key(n_, e_);
+      Rsa_pub_key key(RSA_LENGTH, n_, e_);
       return key;
    }
 
    Rsa_priv_key getPrivateKey() 
    {
-      Rsa_priv_key key(n_, d_);
+      Rsa_priv_key key(RSA_LENGTH, n_, d_);
       return key;
    }
 

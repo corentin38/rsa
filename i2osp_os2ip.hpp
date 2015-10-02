@@ -66,7 +66,7 @@ public:
    
    std::string i2osp(Rsa_priv_key privkey, int_type message_part) 
    {
-      unsigned key_length = privkey.getRsaPrivKey();
+      unsigned key_length = privkey.getRsaKeyLength();
 
       if (message_part >> key_length > 0) {
          std::stringstream err;

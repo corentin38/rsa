@@ -59,7 +59,7 @@ public:
 
    unsigned getRsaKeyLength() 
    {
-      return rsa_key_length;
+      return rsa_key_length_;
    }
    
    unsigned getMaxMessageLength() 

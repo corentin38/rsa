@@ -39,42 +39,35 @@ namespace basics {
 class Cipher {
    
 public:
-   Cipher(Keys keys, I2osp_os2ip data_prim, Rsaep_rsadp crypt_prim) : 
-      data_prim_(data_prim), 
-      crypt_prim_(crypt_prim), 
-      key_length_(keys.getKeyLength()), 
-      message_length_(keys.getKeyLength() / CHAR_SIZE - 1),
-      cipher_text_hexadecimal_length_( (message_length_+1) * 2)
+   Cipher(I2osp_os2ip data_prim, Rsaep_rsadp crypt_prim) : 
+      data_prim_(data_prim), crypt_prim_(crypt_prim)
    {
    }
    
    std::vector< int_type > cipher(Rsa_pub_key pubkey, std::string message) 
    {
       std::vector< int_type > cipher_elements;
+      unsigned message_length = pubkey.getMaxMessageLength();
 
-      std::string cipher_text = CIPHERTEXT_BEGIN;
       std::string message_part = message;
-
-      while(message_part.size() >= message_length_) {
-         std::string message_substring = message_part.substr(0, message_length_);
-         message_part = message_part.substr(message_length_);
-         
-         cipher_elements.push_back(crypt_prim_str(pubkey, message_substring));
+      while(message_part.size() >= message_length) {
+         std::string message_substring = message_part.substr(0, message_length);
+         message_part = message_part.substr(message_length);         
+         cipher_elements.push_back(crypt_prim(pubkey, message_substring));
       }
-      
-      cipher_text += "\n" + crypt_prim_str(pubkey, message_part);
-      cipher_text += "\n";
-      cipher_text += CIPHERTEXT_END;
+
+      // Remainder
+      cipher_elements.push_back(crypt_prim(pubkey, message_part));
    
-      return cipher_text;
+      return cipher_elements;
    }
 
    std::string decipher(Rsa_priv_key privkey, std::vector< int_type > cipher_elements) 
    {
-      std::streamstring msgstream;
+      std::stringstream msgstream;
 
-      for (int_type element : cipher_elements) {
-         msgstream << decrypt_prim_str(element);
+      for (unsigned i=0; i<cipher_elements.size(); i++) {
+         msgstream << decrypt_prim(privkey, cipher_elements[i]);
       }
 
       return msgstream.str();
@@ -85,17 +78,17 @@ private:
    I2osp_os2ip data_prim_;
    Rsaep_rsadp crypt_prim_;
 
-   int_type crypt_prim_str(Rsa_pub_key pubkey, std::string message) 
+   int_type crypt_prim(Rsa_pub_key pubkey, std::string message) 
    {
-      std::cout << "  Ciphering : " << message << "\n";
+//      std::cout << "  Ciphering : " << message << "\n";
 
       int_type message_int = data_prim_.os2ip(pubkey, message);
       int_type cipher_int = crypt_prim_.rsaep(pubkey, message_int);
 
-      return cipher_text;
+      return cipher_int;
    }
    
-   std::string decrypt_prim_str(Rsa_priv_key privkey, int_type cipher_text) 
+   std::string decrypt_prim(Rsa_priv_key privkey, int_type cipher_text) 
    {
       int_type message_int = crypt_prim_.rsadp(privkey, cipher_text);
       std::string message = data_prim_.i2osp(privkey, message_int);

@@ -52,7 +52,7 @@ public:
 
    int_type rsaep(Rsa_pub_key pubkey, int_type message) 
    {
-      std::cout << "    ciphering : " << message << std::endl;
+//      std::cout << "    ciphering : " << message << std::endl;
       
       if (message < 0 || message >= pubkey.getModulus()) {
          std::stringstream err;
@@ -60,7 +60,7 @@ public:
          throw std::runtime_error(err.str());
       }
 
-      std::cout << "    computing : ( " << message << " exp " << pubkey.getExponent() << " ) mod " << pubkey.getModulus() << std::endl;
+//      std::cout << "    computing : ( " << message << " exp " << pubkey.getExponent() << " ) mod " << pubkey.getModulus() << std::endl;
       
       // RSA : c = m^e mod n
       int_type c = powModulus(message, pubkey.getExponent(), pubkey.getModulus());
@@ -97,6 +97,11 @@ private:
 
       for (int i=1; i<exp; i++) {
          acc = (acc * base) % mod;
+
+         if (i % 10000000 == 0) {
+            std::cout << "Please wait : i=" << i << " goal : i=" << exp << "\n";
+         }
+         
       }
       
       return acc;
