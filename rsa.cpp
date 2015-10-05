@@ -65,7 +65,7 @@ int main()
       "Hello woooorld !"
       "Hello woooorld !"
       "Hello woooorldXMORE?"; // 128 char message
-   std::cout << "Message clair : " << message << std::endl;
+   std::cout << "Message clair : \n\n" << message << "\n\n";
 
    // Création des cléfs
    basics::Keys keys;
