@@ -93,16 +93,28 @@ private:
          throw std::runtime_error(err.str());
       }
 
-      int_type acc = base;
-
-      for (int i=1; i<exp; i++) {
-         acc = (acc * base) % mod;
-
-         if (i % 10000000 == 0) {
-            std::cout << "Please wait : i=" << i << " goal : i=" << exp << "\n";
+      // The stupid way
+//      int_type acc = base;
+//      for (int i=1; i<exp; i++) {
+//         acc = (acc * base) % mod;
+//
+//         if (i % 10000000 == 0) {
+//            std::cout << "Please wait : i=" << i << " goal : i=" << exp << "\n";
+//         }
+//      }
+//
+      // The smart way
+      int_type exp_bits = exp;
+      int_type acc = 1;
+      
+      for (int_type acc_square = base; exp_bits > 0; exp_bits = exp_bits >> 2) {
+         if (exp_bits & 1) {
+            acc = (acc * acc_square) % mod;
          }
-         
+         acc_square = (acc_square * acc_square) % mod;
       }
+      
+
       
       return acc;
    }   
