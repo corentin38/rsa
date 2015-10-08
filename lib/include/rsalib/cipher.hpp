@@ -27,7 +27,6 @@
 #ifndef _CIPHER_HPP_
 #define _CIPHER_HPP_
 
-#include "keys.hpp"
 #include "i2osp_os2ip.hpp"
 #include "rsaep_rsadp.hpp"
 
