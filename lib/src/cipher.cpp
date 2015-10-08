@@ -29,9 +29,13 @@
 #include "rsalib/i2osp_os2ip.hpp"
 #include "rsalib/rsaep_rsadp.hpp"
 
+#include <boost/multiprecision/gmp.hpp>
+
 #include <string>
 #include <sstream>
 #include <stdexcept>
+
+typedef boost::multiprecision::mpz_int int_type;
 
 // Constructor
 basics::Cipher::Cipher(I2osp_os2ip data_prim, Rsaep_rsadp crypt_prim) : 

@@ -24,11 +24,11 @@
  * 
  */
 
-#include "keys.hpp"
-#include "cipher.hpp"
-#include "pnrg.hpp"
-#include "i2osp_os2ip.hpp"
-#include "rsaep_rsadp.hpp"
+#include "rsalib/keys.hpp"
+#include "rsalib/cipher.hpp"
+#include "rsalib/pnrg.hpp"
+#include "rsalib/i2osp_os2ip.hpp"
+#include "rsalib/rsaep_rsadp.hpp"
 
 #include <iostream>
 #include <string>
