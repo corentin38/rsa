@@ -38,7 +38,7 @@ basics::int_type basics::inverse(basics::int_type e, basics::int_type phi)
     return v0 < 0 ? phi + v0 : v0;
 }  
 
-basics::int_type powModulus(basics::int_type base, basics::int_type exp, basics::int_type mod) 
+basics::int_type basics::powModulus(basics::int_type base, basics::int_type exp, basics::int_type mod) 
 {
     if (exp == 0) return 1;
     if (base == 0) return 0;

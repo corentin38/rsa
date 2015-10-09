@@ -1,36 +1,19 @@
-/** -*- c-basic-offset: 3 -*- 
- *
- * ENSICAEN
- * 6 Boulevard Maréchal Juin 
- * F-14050 Caen Cedex
- * 
- * Ce fichier est l'oeuvre d'élèves de l'ENSI de Caen. Il ne peut être 
- * reproduit, utilisé ou modifié sans l'avis express de ses auteurs.
- * 
+/** 
+ * INSERT LICENCE INFORMATION HERE
  */ 
 
-/**
+/** 
  * @author Corentin MARCIAU	<corentin@marciau.fr>
- *
- * @version 1.0.0 / 01-09-2015
- * @todo 
- * @bug 
  */
 
-/**
+/** 
  * @file rsa.cpp
- * @brief 
- *
- * 
  */
 
 #include "rsa/keys.hpp"
 #include "rsa/cipher.hpp"
-#include "rsa/pnrg.hpp"
 #include "rsa/i2osp_os2ip.hpp"
 #include "rsa/rsaep_rsadp.hpp"
-
-#include "math_extra/math_extra.hpp"
 
 #include <iostream>
 #include <string>
