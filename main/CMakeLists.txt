@@ -15,5 +15,4 @@ target_link_libraries(
   ${GMP_LIBRARIES} 
   ${GMPXX_LIBRARIES}
   rsa
-  math_extra
 )

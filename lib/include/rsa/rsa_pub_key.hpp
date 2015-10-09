@@ -36,29 +36,24 @@ typedef boost::multiprecision::mpz_int int_type;
 class Rsa_pub_key 
 {
 public:
-   Rsa_pub_key(unsigned rsa_key_length, unsigned char_size, int_type n, int_type e) : 
-      n_(n), e_(e),
-      rsa_key_length_(rsa_key_length),
-      max_message_length_(rsa_key_length / char_size - 1) 
-   {
-   }
+   Rsa_pub_key(unsigned rsa_key_length, unsigned char_size, int_type n, int_type e);
    
-   int_type getModulus() 
+   inline int_type getModulus() 
    {
       return n_;
    }
    
-   int_type getExponent() 
+   inline int_type getExponent() 
    {
       return e_;
    }
 
-   unsigned getRsaKeyLength() 
+   inline unsigned getRsaKeyLength() 
    {
       return rsa_key_length_;
    }
    
-   unsigned getMaxMessageLength() 
+   inline unsigned getMaxMessageLength() 
    {
       return max_message_length_;
    }
