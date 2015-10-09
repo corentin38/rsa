@@ -14,5 +14,6 @@ target_link_libraries(
   ${Boost_LIBRARIES} 
   ${GMP_LIBRARIES} 
   ${GMPXX_LIBRARIES}
-  rsalib 
+  rsa
+  math_extra
 )

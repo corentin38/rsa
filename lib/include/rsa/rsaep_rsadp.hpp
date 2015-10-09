@@ -30,6 +30,7 @@
 #include "keys.hpp"
 #include "rsa_pub_key.hpp"
 #include "rsa_priv_key.hpp"
+#include "math_extra/math_extra.hpp"
 
 #include <cmath>
 #include <boost/multiprecision/gmp.hpp>
@@ -63,7 +64,7 @@ public:
 //      std::cout << "    computing : ( " << message << " exp " << pubkey.getExponent() << " ) mod " << pubkey.getModulus() << std::endl;
       
       // RSA : c = m^e mod n
-      int_type c = powModulus(message, pubkey.getExponent(), pubkey.getModulus());
+      int_type c = basics::powModulus(message, pubkey.getExponent(), pubkey.getModulus());
 
       return c;
    }
@@ -77,35 +78,10 @@ public:
       }
       
       // RSA : m = c^d mod n
-      int_type m = powModulus(cipher_text, privkey.getExponent(), privkey.getModulus());
+      int_type m = basics::powModulus(cipher_text, privkey.getExponent(), privkey.getModulus());
 
       return m;
    }
-
-private:
-   int_type powModulus(int_type base, int_type exp, int_type mod) 
-   {
-      if (exp == 0) return 1;
-      if (base == 0) return 0;
-      if (mod <= 0) {
-         std::stringstream err;
-         err << "null or negative modulus: " << mod;
-         throw std::runtime_error(err.str());
-      }
-
-      int_type exp_bits = exp;
-      int_type acc = 1;
-      
-      // Modular exponentiation specific to RSA
-      for (int_type acc_square = base; exp_bits > 0; exp_bits = exp_bits >> 1) {
-         if (exp_bits & 1) {
-            acc = (acc * acc_square) % mod;
-         }
-         acc_square = (acc_square * acc_square) % mod;
-      }
-      
-      return acc;
-   }   
    
 };
 

@@ -29,21 +29,18 @@
 
 
 #include <boost/multiprecision/gmp.hpp>
-#include "keys.hpp"
 
 namespace basics { 
 
-using namespace boost::multiprecision;
-
-typedef mpz_int int_type;
+typedef boost::multiprecision::mpz_int int_type;
 
 class Rsa_priv_key 
 {
 public:
-   Rsa_priv_key(unsigned rsa_key_length, int_type n, int_type d) : 
+   Rsa_priv_key(unsigned rsa_key_length, unsigned char_size, int_type n, int_type d) : 
       n_(n), d_(d),
       rsa_key_length_(rsa_key_length),
-      max_message_length_(rsa_key_length / CHAR_SIZE - 1)
+      max_message_length_(rsa_key_length / char_size - 1)
    {
    }
    

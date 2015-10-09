@@ -24,27 +24,16 @@
  * 
  */
 
-#include "rsalib/cipher.hpp"
-
-#include "rsalib/i2osp_os2ip.hpp"
-#include "rsalib/rsaep_rsadp.hpp"
-
-#include <boost/multiprecision/gmp.hpp>
-
-#include <string>
-#include <sstream>
-#include <stdexcept>
-
-typedef boost::multiprecision::mpz_int int_type;
+#include "rsa/cipher.hpp"
 
 // Constructor
-basics::Cipher::Cipher(I2osp_os2ip data_prim, Rsaep_rsadp crypt_prim) : 
+basics::Cipher::Cipher(basics::I2osp_os2ip data_prim, basics::Rsaep_rsadp crypt_prim) : 
    data_prim_(data_prim), crypt_prim_(crypt_prim)
 {
 }
 
 // Public
-std::vector< int_type > basics::Cipher::cipher(Rsa_pub_key pubkey, std::string message) 
+std::vector< basics::int_type > basics::Cipher::cipher(basics::Rsa_pub_key pubkey, std::string message) 
 {
    std::vector< int_type > cipher_elements;
    unsigned message_length = pubkey.getMaxMessageLength();
@@ -62,7 +51,8 @@ std::vector< int_type > basics::Cipher::cipher(Rsa_pub_key pubkey, std::string m
    return cipher_elements;
 }
 
-std::string basics::Cipher::decipher(Rsa_priv_key privkey, std::vector< int_type > cipher_elements) 
+std::string basics::Cipher::decipher(basics::Rsa_priv_key privkey, 
+                                     std::vector< basics::int_type > cipher_elements) 
 {
    std::stringstream msgstream;
    
@@ -74,17 +64,17 @@ std::string basics::Cipher::decipher(Rsa_priv_key privkey, std::vector< int_type
 }
 
 // Private
-int_type basics::Cipher::crypt_prim(Rsa_pub_key pubkey, std::string message) 
+basics::int_type basics::Cipher::crypt_prim(basics::Rsa_pub_key pubkey, std::string message) 
 {
-   int_type message_int = data_prim_.os2ip(pubkey, message);
-   int_type cipher_int = crypt_prim_.rsaep(pubkey, message_int);
+   basics::int_type message_int = data_prim_.os2ip(pubkey, message);
+   basics::int_type cipher_int = crypt_prim_.rsaep(pubkey, message_int);
    
    return cipher_int;
 }
 
-std::string basics::Cipher::decrypt_prim(Rsa_priv_key privkey, int_type cipher_text) 
+std::string basics::Cipher::decrypt_prim(basics::Rsa_priv_key privkey, basics::int_type cipher_text) 
 {
-   int_type message_int = crypt_prim_.rsadp(privkey, cipher_text);
+   basics::int_type message_int = crypt_prim_.rsadp(privkey, cipher_text);
    std::string message = data_prim_.i2osp(privkey, message_int);
    
    return message;      

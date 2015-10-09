@@ -5,4 +5,5 @@ include_directories( ${Boost_INCLUDE_DIRS} )
 include_directories( ${GMP_INCLUDE_DIR} )
 include_directories( ${CMAKE_SOURCE_DIR}/lib/include )
 
-add_library( rsalib cipher.cpp )
+add_library( rsa cipher.cpp keys.cpp pnrg.cpp i2osp_os2ip.cpp )
+add_library( math_extra math_extra.cpp )

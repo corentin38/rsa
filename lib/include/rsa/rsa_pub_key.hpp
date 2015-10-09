@@ -28,21 +28,18 @@
 #define _RSA_PUB_KEY_HPP_
 
 #include <boost/multiprecision/gmp.hpp>
-#include "keys.hpp"
 
 namespace basics { 
 
-using namespace boost::multiprecision;
-
-typedef mpz_int int_type;
+typedef boost::multiprecision::mpz_int int_type;
 
 class Rsa_pub_key 
 {
 public:
-   Rsa_pub_key(unsigned rsa_key_length, int_type n, int_type e) : 
+   Rsa_pub_key(unsigned rsa_key_length, unsigned char_size, int_type n, int_type e) : 
       n_(n), e_(e),
       rsa_key_length_(rsa_key_length),
-      max_message_length_(rsa_key_length / CHAR_SIZE - 1) 
+      max_message_length_(rsa_key_length / char_size - 1) 
    {
    }
    

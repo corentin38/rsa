@@ -24,20 +24,20 @@
  * 
  */
 
-#include "rsalib/keys.hpp"
-#include "rsalib/cipher.hpp"
-#include "rsalib/pnrg.hpp"
-#include "rsalib/i2osp_os2ip.hpp"
-#include "rsalib/rsaep_rsadp.hpp"
+#include "rsa/keys.hpp"
+#include "rsa/cipher.hpp"
+#include "rsa/pnrg.hpp"
+#include "rsa/i2osp_os2ip.hpp"
+#include "rsa/rsaep_rsadp.hpp"
+
+#include "math_extra/math_extra.hpp"
 
 #include <iostream>
 #include <string>
 #include <stdexcept>
 #include <sstream>
 
-using namespace boost::multiprecision;
-
-typedef mpz_int int_type;
+typedef boost::multiprecision::mpz_int int_type;
 
 void print_cipher_text(std::vector< int_type > cipher_elements) 
 {
