@@ -25,22 +25,22 @@ class Rsa_priv_key
 public:
    Rsa_priv_key(unsigned rsa_key_length, unsigned char_size, int_type n, int_type d);
    
-   inline int_type getModulus() 
+   inline const int_type& getModulus() const
    {
       return n_;
    }
    
-   inline int_type getExponent() 
+   inline const int_type& getExponent() const
    {
       return d_;
    }
 
-   inline unsigned getRsaKeyLength() 
+   inline unsigned getRsaKeyLength() const
    {
       return rsa_key_length_;
    }
    
-   inline unsigned getMaxMessageLength() 
+   inline unsigned getMaxMessageLength() const
    {
       return max_message_length_;
    }

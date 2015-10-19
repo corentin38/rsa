@@ -20,7 +20,9 @@ basics::Rsaep_rsadp::Rsaep_rsadp()
 {
 }
 
-basics::int_type basics::Rsaep_rsadp::rsaep(basics::Rsa_pub_key pubkey, basics::int_type message) 
+basics::int_type 
+basics::Rsaep_rsadp::rsaep(const basics::Rsa_pub_key& pubkey, 
+                           const basics::int_type& message) 
 {
     if (message < 0 || message >= pubkey.getModulus()) {
         std::stringstream err;
@@ -34,7 +36,9 @@ basics::int_type basics::Rsaep_rsadp::rsaep(basics::Rsa_pub_key pubkey, basics::
     return c;
 }
 
-basics::int_type basics::Rsaep_rsadp::rsadp(basics::Rsa_priv_key privkey, basics::int_type cipher_text) 
+basics::int_type 
+basics::Rsaep_rsadp::rsadp(const basics::Rsa_priv_key& privkey, 
+                           const basics::int_type& cipher_text) 
 {
     if (cipher_text < 0 || cipher_text >= privkey.getModulus()) {
         std::stringstream err;

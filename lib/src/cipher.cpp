@@ -64,7 +64,9 @@ std::string basics::Cipher::decipher(basics::Rsa_priv_key privkey,
 }
 
 // Private
-basics::int_type basics::Cipher::crypt_prim(basics::Rsa_pub_key pubkey, std::string message) 
+basics::int_type 
+basics::Cipher::crypt(basics::Rsa_pub_key pubkey, 
+                      std::string message) 
 {
    basics::int_type message_int = data_prim_.os2ip(pubkey, message);
    basics::int_type cipher_int = crypt_prim_.rsaep(pubkey, message_int);
@@ -72,7 +74,9 @@ basics::int_type basics::Cipher::crypt_prim(basics::Rsa_pub_key pubkey, std::str
    return cipher_int;
 }
 
-std::string basics::Cipher::decrypt_prim(basics::Rsa_priv_key privkey, basics::int_type cipher_text) 
+std::string 
+basics::Cipher::decrypt(basics::Rsa_priv_key privkey, 
+                        basics::int_type cipher_text) 
 {
    basics::int_type message_int = crypt_prim_.rsadp(privkey, cipher_text);
    std::string message = data_prim_.i2osp(privkey, message_int);

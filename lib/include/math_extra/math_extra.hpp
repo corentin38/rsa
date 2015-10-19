@@ -56,7 +56,10 @@ int_type inverse(int_type e, int_type phi);
  * @param   int_type  mod     le module d'exponentiation
  * @return  int_type  m       l'entier tel que m == pow(e,k) % N
  */
-int_type powModulus(int_type base, int_type exp, int_type mod);
+int_type 
+powModulus(const int_type& base, 
+           const int_type& exp, 
+           const int_type& mod);
 
 } // namespace
 
