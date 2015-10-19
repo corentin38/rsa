@@ -26,10 +26,17 @@
 
 #include "rsa/cipher.hpp"
 
-// Constructor
-basics::Cipher::Cipher(basics::I2osp_os2ip data_prim, basics::Rsaep_rsadp crypt_prim) : 
+// Constructor / Destructor
+basics::Cipher::Cipher(basics::I2osp_os2ip data_prim, basics::Crypt_prim *crypt_prim) : 
    data_prim_(data_prim), crypt_prim_(crypt_prim)
 {
+}
+
+basics::Cipher::~Cipher() 
+{
+   if(crypt_prim_) {
+      delete crypt_prim_;
+   }
 }
 
 // Public
@@ -42,11 +49,11 @@ std::vector< basics::int_type > basics::Cipher::cipher(basics::Rsa_pub_key pubke
    while(message_part.size() >= message_length) {
       std::string message_substring = message_part.substr(0, message_length);
       message_part = message_part.substr(message_length);         
-      cipher_elements.push_back(crypt_prim(pubkey, message_substring));
+      cipher_elements.push_back(crypt(pubkey, message_substring));
    }
    
    // Remainder
-   cipher_elements.push_back(crypt_prim(pubkey, message_part));
+   cipher_elements.push_back(crypt(pubkey, message_part));
    
    return cipher_elements;
 }
@@ -57,7 +64,7 @@ std::string basics::Cipher::decipher(basics::Rsa_priv_key privkey,
    std::stringstream msgstream;
    
    for (unsigned i=0; i<cipher_elements.size(); i++) {
-      msgstream << decrypt_prim(privkey, cipher_elements[i]);
+      msgstream << decrypt(privkey, cipher_elements[i]);
    }
    
    return msgstream.str();
@@ -69,7 +76,7 @@ basics::Cipher::crypt(basics::Rsa_pub_key pubkey,
                       std::string message) 
 {
    basics::int_type message_int = data_prim_.os2ip(pubkey, message);
-   basics::int_type cipher_int = crypt_prim_.rsaep(pubkey, message_int);
+   basics::int_type cipher_int = crypt_prim_->rsaep(pubkey, message_int);
    
    return cipher_int;
 }
@@ -78,7 +85,7 @@ std::string
 basics::Cipher::decrypt(basics::Rsa_priv_key privkey, 
                         basics::int_type cipher_text) 
 {
-   basics::int_type message_int = crypt_prim_.rsadp(privkey, cipher_text);
+   basics::int_type message_int = crypt_prim_->rsadp(privkey, cipher_text);
    std::string message = data_prim_.i2osp(privkey, message_int);
    
    return message;      

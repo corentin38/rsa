@@ -61,7 +61,7 @@ int main()
 
    // Initialisation du chiffreur
    basics::I2osp_os2ip data_prim;
-   basics::Rsaep_rsadp crypt_prim;
+   basics::Crypt_prim *crypt_prim = new basics::Rsaep_rsadp();
    basics::Cipher my_cipher(data_prim, crypt_prim);
 
    // Chiffrement
