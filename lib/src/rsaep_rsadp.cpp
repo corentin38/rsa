@@ -17,7 +17,13 @@
 #include <sstream>
 
 basics::Rsaep_rsadp::Rsaep_rsadp()
+    : Crypt_prim()
 {
+}
+
+basics::Rsaep_rsadp::~Rsaep_rsadp()
+{
+    return;
 }
 
 basics::int_type 

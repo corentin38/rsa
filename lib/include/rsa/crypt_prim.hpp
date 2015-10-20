@@ -24,6 +24,7 @@ typedef boost::multiprecision::mpz_int int_type;
 class Crypt_prim 
 {
 public:
+    virtual ~Crypt_prim() {};
     virtual int_type rsaep(const Rsa_pub_key& pubkey, const int_type& message) = 0;
     virtual int_type rsadp(const Rsa_priv_key& privkey, const int_type& cipher_text) = 0;
 };

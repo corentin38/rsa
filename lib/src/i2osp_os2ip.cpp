@@ -11,16 +11,23 @@
  */
 
 #include "rsa/i2osp_os2ip.hpp"
-
 #include <cmath>
 #include <iostream>
 #include <stdexcept>
 #include <sstream>
 
-basics::I2osp_os2ip::I2osp_os2ip() {}
+basics::I2osp_os2ip::I2osp_os2ip() 
+    : Data_prim()
+{
+}
+
+basics::I2osp_os2ip::~I2osp_os2ip() 
+{
+    return;
+}
 
 basics::int_type 
-basics::I2osp_os2ip::os2ip(basics::Rsa_pub_key pubkey, std::string message_part)
+basics::I2osp_os2ip::os2ip(const basics::Rsa_pub_key& pubkey, const std::string& message_part)
 {
     if (message_part.size() > pubkey.getMaxMessageLength()) {
         std::stringstream err;
@@ -39,7 +46,7 @@ basics::I2osp_os2ip::os2ip(basics::Rsa_pub_key pubkey, std::string message_part)
 }
 
 std::string 
-basics::I2osp_os2ip::i2osp(basics::Rsa_priv_key privkey, basics::int_type message_part) 
+basics::I2osp_os2ip::i2osp(const basics::Rsa_priv_key& privkey, const basics::int_type& message_part) 
 {
     unsigned key_length = privkey.getRsaKeyLength();
     

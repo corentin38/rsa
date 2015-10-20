@@ -13,7 +13,7 @@
 #ifndef _CIPHER_HPP_
 #define _CIPHER_HPP_
 
-#include "i2osp_os2ip.hpp"
+#include "data_prim.hpp"
 #include "crypt_prim.hpp"
 
 namespace basics {
@@ -21,14 +21,14 @@ namespace basics {
 class Cipher {
     
 public:
-    Cipher(I2osp_os2ip data_prim, Crypt_prim *crypt_prim);
+    Cipher(Data_prim *data_prim, Crypt_prim *crypt_prim);
     ~Cipher();
 
     std::vector< int_type > cipher(Rsa_pub_key pubkey, std::string message);
     std::string decipher(Rsa_priv_key privkey, std::vector< int_type > cipher_elements);
     
 private:
-    I2osp_os2ip data_prim_;
+    Data_prim *data_prim_;
     Crypt_prim *crypt_prim_;
 
     int_type crypt(Rsa_pub_key pubkey, std::string message);

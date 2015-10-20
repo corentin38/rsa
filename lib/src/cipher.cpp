@@ -27,7 +27,7 @@
 #include "rsa/cipher.hpp"
 
 // Constructor / Destructor
-basics::Cipher::Cipher(basics::I2osp_os2ip data_prim, basics::Crypt_prim *crypt_prim) : 
+basics::Cipher::Cipher(basics::Data_prim *data_prim, basics::Crypt_prim *crypt_prim) : 
    data_prim_(data_prim), crypt_prim_(crypt_prim)
 {
 }
@@ -36,6 +36,9 @@ basics::Cipher::~Cipher()
 {
    if(crypt_prim_) {
       delete crypt_prim_;
+   }
+   if(data_prim_) {
+      delete data_prim_;
    }
 }
 
@@ -75,7 +78,7 @@ basics::int_type
 basics::Cipher::crypt(basics::Rsa_pub_key pubkey, 
                       std::string message) 
 {
-   basics::int_type message_int = data_prim_.os2ip(pubkey, message);
+   basics::int_type message_int = data_prim_->os2ip(pubkey, message);
    basics::int_type cipher_int = crypt_prim_->rsaep(pubkey, message_int);
    
    return cipher_int;
@@ -86,7 +89,7 @@ basics::Cipher::decrypt(basics::Rsa_priv_key privkey,
                         basics::int_type cipher_text) 
 {
    basics::int_type message_int = crypt_prim_->rsadp(privkey, cipher_text);
-   std::string message = data_prim_.i2osp(privkey, message_int);
+   std::string message = data_prim_->i2osp(privkey, message_int);
    
    return message;      
 }
