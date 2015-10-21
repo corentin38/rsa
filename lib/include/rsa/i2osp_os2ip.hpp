@@ -13,16 +13,12 @@
 #ifndef _I2OSP_OS2IP_HPP_
 #define _I2OSP_OS2IP_HPP_
 
-#include "rsa/data_prim.hpp"
-
-#include "rsa/rsa_pub_key.hpp"
-#include "rsa/rsa_priv_key.hpp"
-
-#include <boost/multiprecision/gmp.hpp>
+#include "int_type.hpp"
+#include "data_prim.hpp"
+#include "rsa_pub_key.hpp"
+#include "rsa_priv_key.hpp"
 
 namespace basics {
-
-typedef boost::multiprecision::mpz_int int_type;
 
 class I2osp_os2ip : public basics::Data_prim
 {

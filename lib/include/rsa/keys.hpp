@@ -27,18 +27,16 @@
 #ifndef _KEYS_HPP_
 #define _KEYS_HPP_
 
-#define RSA_LENGTH 512
-#define CHAR_SIZE 8
+#include "int_type.hpp"
 
 #include "rsa_pub_key.hpp"
 #include "rsa_priv_key.hpp"
 
-#include <boost/multiprecision/gmp.hpp>
-#include <boost/multiprecision/integer.hpp>
-
 namespace basics {
 
-typedef boost::multiprecision::mpz_int int_type;
+// Constants
+unsigned const rsa_length = 512;
+unsigned const char_size = 8;
 
 class Keys {
 
@@ -55,7 +53,7 @@ public:
 
    inline unsigned getKeyLength() 
    {
-      return RSA_LENGTH;
+      return rsa_length;
    }
    
 private:

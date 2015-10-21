@@ -27,11 +27,9 @@
 #ifndef _RSA_PUB_KEY_HPP_
 #define _RSA_PUB_KEY_HPP_
 
-#include <boost/multiprecision/gmp.hpp>
+#include "int_type.hpp"
 
 namespace basics { 
-
-typedef boost::multiprecision::mpz_int int_type;
 
 class Rsa_pub_key 
 {

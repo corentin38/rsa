@@ -10,15 +10,19 @@
  * @file keys.cpp
  */
 
+#include <boost/multiprecision/gmp.hpp>
+#include <boost/multiprecision/integer.hpp>
+
 #include "rsa/keys.hpp"
 #include "rsa/pnrg.hpp"
 
 #include "math_extra/math_extra.hpp"
 
+
 void basics::Keys::generate() 
 {
     // Trouvons p et q deux grands entiers premiers
-    basics::Pnrg pnrg(RSA_LENGTH);
+    basics::Pnrg pnrg(basics::rsa_length);
     p_ = pnrg.getPrime();
     q_ = pnrg.getPrime();
     
@@ -63,12 +67,12 @@ basics::Keys::Keys() : p_(0), q_(0), n_(0),
 
 basics::Rsa_pub_key basics::Keys::getPublicKey() 
 {
-    basics::Rsa_pub_key key(RSA_LENGTH, CHAR_SIZE, n_, e_);
+    basics::Rsa_pub_key key(basics::rsa_length, basics::char_size, n_, e_);
     return key;
 }
 
 basics::Rsa_priv_key basics::Keys::getPrivateKey() 
 {
-    basics::Rsa_priv_key key(RSA_LENGTH, CHAR_SIZE, n_, d_);
+    basics::Rsa_priv_key key(basics::rsa_length, basics::char_size, n_, d_);
     return key;
 }

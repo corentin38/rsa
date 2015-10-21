@@ -23,7 +23,7 @@ basics::Pnrg::Pnrg(unsigned key_length) : key_length_(key_length)
 basics::int_type basics::Pnrg::getPrime() 
 {
     boost::random::mt11213b base_gen(clock());
-    boost::random::independent_bits_engine< boost::random::mt11213b, RSA_LENGTH/2, basics::int_type > gen(base_gen);
+    boost::random::independent_bits_engine< boost::random::mt11213b, basics::rsa_length/2, basics::int_type > gen(base_gen);
     boost::random::mt19937 gen2(clock());
     
     /* Voir si le test en plus serait utile ? De toutes les façons, il fait exploser le */

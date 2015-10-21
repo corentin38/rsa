@@ -13,13 +13,11 @@
 #ifndef _CRYPT_PRIM_HPP_
 #define _CRYPT_PRIM_HPP_
 
-#include <boost/multiprecision/gmp.hpp>
+#include "int_type.hpp"
 #include "rsa_pub_key.hpp"
 #include "rsa_priv_key.hpp"
 
 namespace basics {
-
-typedef boost::multiprecision::mpz_int int_type;
 
 class Crypt_prim 
 {

@@ -13,12 +13,9 @@
 #ifndef _RSA_PRIV_KEY_HH_
 #define _RSA_PRIV_KEY_HH_
 
-
-#include <boost/multiprecision/gmp.hpp>
+#include "int_type.hpp"
 
 namespace basics { 
-
-typedef boost::multiprecision::mpz_int int_type;
 
 class Rsa_priv_key 
 {

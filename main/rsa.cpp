@@ -10,6 +10,7 @@
  * @file rsa.cpp
  */
 
+#include "rsa/int_type.hpp"
 #include "rsa/keys.hpp"
 #include "rsa/cipher.hpp"
 #include "rsa/i2osp_os2ip.hpp"
@@ -20,9 +21,7 @@
 #include <stdexcept>
 #include <sstream>
 
-typedef boost::multiprecision::mpz_int int_type;
-
-void print_cipher_text(std::vector< int_type > cipher_elements) 
+void print_cipher_text(std::vector< basics::int_type > cipher_elements) 
 {
    std::cout << "Message chiffré : \n\n";
    std::cout << "-- CIPHERTEXT BEGIN --\n";
@@ -65,7 +64,7 @@ int main()
    basics::Cipher my_cipher(data_prim, crypt_prim);
 
    // Chiffrement
-   std::vector< int_type > s3cr3t = my_cipher.cipher(keys.getPublicKey(), message);
+   std::vector< basics::int_type > s3cr3t = my_cipher.cipher(keys.getPublicKey(), message);
    print_cipher_text(s3cr3t);
 
    // Déchiffrement
