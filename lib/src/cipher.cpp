@@ -27,19 +27,14 @@
 #include "rsa/cipher.hpp"
 
 // Constructor / Destructor
-basics::Cipher::Cipher(basics::Data_prim *data_prim, basics::Crypt_prim *crypt_prim) : 
-   data_prim_(data_prim), crypt_prim_(crypt_prim)
+basics::Cipher::Cipher( std::unique_ptr<basics::Data_prim> data_prim_ptr, 
+                        std::unique_ptr<basics::Crypt_prim> crypt_prim_ptr) : 
+   data_prim_ptr_( std::move(data_prim_ptr) ), crypt_prim_ptr_( std::move(crypt_prim_ptr) )
 {
 }
 
 basics::Cipher::~Cipher() 
 {
-   if(crypt_prim_) {
-      delete crypt_prim_;
-   }
-   if(data_prim_) {
-      delete data_prim_;
-   }
 }
 
 // Public
@@ -78,8 +73,8 @@ basics::int_type
 basics::Cipher::crypt(basics::Rsa_pub_key pubkey, 
                       std::string message) 
 {
-   basics::int_type message_int = data_prim_->os2ip(pubkey, message);
-   basics::int_type cipher_int = crypt_prim_->rsaep(pubkey, message_int);
+   basics::int_type message_int = data_prim_ptr_->os2ip(pubkey, message);
+   basics::int_type cipher_int = crypt_prim_ptr_->rsaep(pubkey, message_int);
    
    return cipher_int;
 }
@@ -88,8 +83,8 @@ std::string
 basics::Cipher::decrypt(basics::Rsa_priv_key privkey, 
                         basics::int_type cipher_text) 
 {
-   basics::int_type message_int = crypt_prim_->rsadp(privkey, cipher_text);
-   std::string message = data_prim_->i2osp(privkey, message_int);
+   basics::int_type message_int = crypt_prim_ptr_->rsadp(privkey, cipher_text);
+   std::string message = data_prim_ptr_->i2osp(privkey, message_int);
    
    return message;      
 }

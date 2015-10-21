@@ -59,9 +59,13 @@ int main()
    }
 
    // Initialisation du chiffreur
-   basics::Data_prim *data_prim = new basics::I2osp_os2ip();
-   basics::Crypt_prim *crypt_prim = new basics::Rsaep_rsadp();
-   basics::Cipher my_cipher(data_prim, crypt_prim);
+//   basics::Data_prim *data_prim = new basics::I2osp_os2ip();
+//   basics::Crypt_prim *crypt_prim = new basics::Rsaep_rsadp();
+
+   std::unique_ptr<basics::Data_prim> data_prim_ptr( new basics::I2osp_os2ip() );
+   std::unique_ptr<basics::Crypt_prim> crypt_prim_ptr( new basics::Rsaep_rsadp() );
+
+   basics::Cipher my_cipher( std::move(data_prim_ptr), std::move(crypt_prim_ptr) );
 
    // Chiffrement
    std::vector< basics::int_type > s3cr3t = my_cipher.cipher(keys.getPublicKey(), message);
