@@ -22,7 +22,7 @@ class Pnrg {
 public:
    Pnrg(unsigned key_length);
 
-   int_type getPrime();
+   int_type getPrime() const;
 
 private:
    unsigned key_length_;

@@ -18,6 +18,25 @@
 
 #include "math_extra/math_extra.hpp"
 
+basics::Keys::Keys()
+    : p_(0), q_(0), n_(0), 
+      phi_(0), e_(0), d_(0), 
+      operational_(false)        
+{
+    generate();
+}
+
+basics::Rsa_pub_key basics::Keys::getPublicKey() const
+{
+    basics::Rsa_pub_key key(basics::rsa_length, basics::char_size, n_, e_);
+    return key;
+}
+
+basics::Rsa_priv_key basics::Keys::getPrivateKey() const
+{
+    basics::Rsa_priv_key key(basics::rsa_length, basics::char_size, n_, d_);
+    return key;
+}
 
 void basics::Keys::generate() 
 {
@@ -58,21 +77,3 @@ void basics::Keys::generate()
     operational_ = true;
 }
 
-basics::Keys::Keys() : p_(0), q_(0), n_(0), 
-                       phi_(0), e_(0), d_(0), 
-                       operational_(false)        
-{
-    generate();
-}
-
-basics::Rsa_pub_key basics::Keys::getPublicKey() 
-{
-    basics::Rsa_pub_key key(basics::rsa_length, basics::char_size, n_, e_);
-    return key;
-}
-
-basics::Rsa_priv_key basics::Keys::getPrivateKey() 
-{
-    basics::Rsa_priv_key key(basics::rsa_length, basics::char_size, n_, d_);
-    return key;
-}

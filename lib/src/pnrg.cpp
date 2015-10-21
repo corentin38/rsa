@@ -20,7 +20,7 @@ basics::Pnrg::Pnrg(unsigned key_length) : key_length_(key_length)
 }
 
 // TODO: Make RSA_LENGTH dynamic with key_length_
-basics::int_type basics::Pnrg::getPrime() 
+basics::int_type basics::Pnrg::getPrime() const
 {
     boost::random::mt11213b base_gen(clock());
     boost::random::independent_bits_engine< boost::random::mt11213b, basics::rsa_length/2, basics::int_type > gen(base_gen);

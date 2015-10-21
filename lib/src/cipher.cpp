@@ -38,7 +38,8 @@ basics::Cipher::~Cipher()
 }
 
 // Public
-std::vector< basics::int_type > basics::Cipher::cipher(basics::Rsa_pub_key pubkey, std::string message) 
+std::vector< basics::int_type > 
+basics::Cipher::cipher(const basics::Rsa_pub_key& pubkey, const std::string& message) 
 {
    std::vector< int_type > cipher_elements;
    unsigned message_length = pubkey.getMaxMessageLength();
@@ -56,8 +57,8 @@ std::vector< basics::int_type > basics::Cipher::cipher(basics::Rsa_pub_key pubke
    return cipher_elements;
 }
 
-std::string basics::Cipher::decipher(basics::Rsa_priv_key privkey, 
-                                     std::vector< basics::int_type > cipher_elements) 
+std::string basics::Cipher::decipher(const basics::Rsa_priv_key& privkey, 
+                                     const std::vector< basics::int_type >& cipher_elements) 
 {
    std::stringstream msgstream;
    
@@ -70,8 +71,8 @@ std::string basics::Cipher::decipher(basics::Rsa_priv_key privkey,
 
 // Private
 basics::int_type 
-basics::Cipher::crypt(basics::Rsa_pub_key pubkey, 
-                      std::string message) 
+basics::Cipher::crypt(const basics::Rsa_pub_key& pubkey, 
+                      const std::string& message) 
 {
    basics::int_type message_int = data_prim_ptr_->os2ip(pubkey, message);
    basics::int_type cipher_int = crypt_prim_ptr_->rsaep(pubkey, message_int);
@@ -80,8 +81,8 @@ basics::Cipher::crypt(basics::Rsa_pub_key pubkey,
 }
 
 std::string 
-basics::Cipher::decrypt(basics::Rsa_priv_key privkey, 
-                        basics::int_type cipher_text) 
+basics::Cipher::decrypt(const basics::Rsa_priv_key& privkey, 
+                        const basics::int_type& cipher_text) 
 {
    basics::int_type message_int = crypt_prim_ptr_->rsadp(privkey, cipher_text);
    std::string message = data_prim_ptr_->i2osp(privkey, message_int);

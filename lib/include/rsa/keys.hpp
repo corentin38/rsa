@@ -43,15 +43,15 @@ class Keys {
 public:
    Keys();
 
-   Rsa_pub_key getPublicKey();
-   Rsa_priv_key getPrivateKey();
+   Rsa_pub_key getPublicKey() const;
+   Rsa_priv_key getPrivateKey() const;
 
-   inline bool isOperational() 
+   inline bool isOperational() const
    {
       return operational_;
    }
 
-   inline unsigned getKeyLength() 
+   inline unsigned getKeyLength() const
    {
       return rsa_length;
    }
