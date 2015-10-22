@@ -24,11 +24,10 @@
  * 
  */
 
-#ifndef _KEYS_HPP_
-#define _KEYS_HPP_
+#ifndef BASICS_KEYS_HPP
+#define BASICS_KEYS_HPP
 
 #include "int_type.hpp"
-
 #include "rsa_pub_key.hpp"
 #include "rsa_priv_key.hpp"
 

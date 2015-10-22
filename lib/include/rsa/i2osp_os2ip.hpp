@@ -10,8 +10,8 @@
  * @file i2osp_os2ip.hpp
  */
 
-#ifndef _I2OSP_OS2IP_HPP_
-#define _I2OSP_OS2IP_HPP_
+#ifndef BASICS_I2OSP_OS2IP_HPP
+#define BASICS_I2OSP_OS2IP_HPP
 
 #include "int_type.hpp"
 #include "data_prim.hpp"

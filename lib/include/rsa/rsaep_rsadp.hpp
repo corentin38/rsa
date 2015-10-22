@@ -10,13 +10,11 @@
  * @file rsaep_rsadp.hpp
  */
 
-#ifndef _RSAEP_RSADP_HPP_
-#define _RSAEP_RSADP_HPP_
+#ifndef BASICS_RSAEP_RSADP_HPP
+#define BASICS_RSAEP_RSADP_HPP
 
 #include "int_type.hpp"
-
 #include "crypt_prim.hpp"
-
 #include "rsa_pub_key.hpp"
 #include "rsa_priv_key.hpp"
 

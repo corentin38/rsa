@@ -10,8 +10,8 @@
  * @file int_type.hpp
  */
 
-#ifndef _INT_TYPE_HPP_
-#define _INT_TYPE_HPP_
+#ifndef BASICS_INT_TYPE_HPP
+#define BASICS_INT_TYPE_HPP
 
 #include <boost/multiprecision/gmp.hpp>
 

@@ -10,8 +10,8 @@
  * @file crypt_prim.hpp
  */
 
-#ifndef _CRYPT_PRIM_HPP_
-#define _CRYPT_PRIM_HPP_
+#ifndef BASICS_CRYPT_PRIM_HPP
+#define BASICS_CRYPT_PRIM_HPP
 
 #include "int_type.hpp"
 #include "rsa_pub_key.hpp"

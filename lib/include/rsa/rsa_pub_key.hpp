@@ -24,8 +24,8 @@
  * 
  */
 
-#ifndef _RSA_PUB_KEY_HPP_
-#define _RSA_PUB_KEY_HPP_
+#ifndef BASICS_RSA_PUB_KEY_HPP
+#define BASICS_RSA_PUB_KEY_HPP
 
 #include "int_type.hpp"
 

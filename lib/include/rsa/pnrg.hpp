@@ -10,8 +10,8 @@
  * @file pnrg.hpp
  */
 
-#ifndef _PNRG_HPP_
-#define _PNRG_HPP_
+#ifndef BASICS_PNRG_HPP
+#define BASICS_PNRG_HPP
 
 #include "int_type.hpp"
 

@@ -10,8 +10,8 @@
  * @file math_extra.hpp
  */
 
-#ifndef _MATH_EXTRA_HPP_
-#define _MATH_EXTRA_HPP_
+#ifndef BASICS_MATH_EXTRA_HPP
+#define BASICS_MATH_EXTRA_HPP
 
 #include <boost/multiprecision/gmp.hpp>
 #include <boost/multiprecision/integer.hpp>

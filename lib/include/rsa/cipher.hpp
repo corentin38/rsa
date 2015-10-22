@@ -3,18 +3,17 @@
  */ 
 
 /**
- * @author Corentin MARCIAU	<corentin@marciau.fr>
+ * @author Corentin MARCIAU <corentin@marciau.fr>
  */
 
 /** 
  * @file cipher.hpp
  */
 
-#ifndef _CIPHER_HPP_
-#define _CIPHER_HPP_
+#ifndef BASICS_CIPHER_HPP
+#define BASICS_CIPHER_HPP
 
 #include "int_type.hpp"
-
 #include "data_prim.hpp"
 #include "crypt_prim.hpp"
 

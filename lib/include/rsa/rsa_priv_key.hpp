@@ -10,8 +10,8 @@
  * @file rsa_priv_key.hpp
  */
 
-#ifndef _RSA_PRIV_KEY_HH_
-#define _RSA_PRIV_KEY_HH_
+#ifndef BASICS_RSA_PRIV_KEY_HPP
+#define BASICS_RSA_PRIV_KEY_HPP
 
 #include "int_type.hpp"
 

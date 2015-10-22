@@ -10,8 +10,8 @@
  * @file data_prim.hpp
  */
 
-#ifndef _DATA_PRIM_HPP_
-#define _DATA_PRIM_HPP_
+#ifndef BASICS_DATA_PRIM_HPP
+#define BASICS_DATA_PRIM_HPP
 
 #include "int_type.hpp"
 #include "rsa_pub_key.hpp"
