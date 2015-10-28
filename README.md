@@ -1,15 +1,17 @@
 # rsa
 
+### Description
+
 Short implementation of RSA cipher and decipher algorithm. 
 
-# build
+### build
 
-$ mkdir build
-$ cd build
-$ cmake ..
-$ make
+$ mkdir build \n
+$ cd build \n
+$ cmake .. \n
+$ make \n
 
-# run
+### run
 
-$ cd build
-$ ./main/RSA
+$ cd build \n
+$ ./main/RSA \n
