@@ -23,8 +23,11 @@
  * @file pnrg.hpp
  *
  * @todo
- *  - Implémenter un vrai générateur de nombre aléatoires avec Boost
- *    random device et/ou une méthode appropriée pour la cryptographie
+ * - Implémenter un vrai générateur de nombre aléatoires avec Boost
+ *   random device et/ou une méthode appropriée pour la cryptographie
+ * - Virer la dépendance à une constante pour la taille de la clef
+ *   pour pouvoir générer des nombres aléatoires de longueur
+ *   dynamique. 
  * 
  */
 

@@ -34,12 +34,49 @@ namespace basics {
 
 typedef boost::multiprecision::mpz_int int_type;
 
+/** 
+ * Interface de primitive de données utilisable par la classe Cipher.
+ */
 class Data_prim {
    
 public:
-   virtual ~Data_prim() {};
-   virtual int_type os2ip(const Rsa_pub_key& pubkey, const std::string& message_part) = 0;
-   virtual std::string i2osp(const Rsa_priv_key& privkey, const int_type& message_part) = 0;
+    virtual ~Data_prim() {};
+
+    /** 
+     * La méthode os2ip pour Octet String To Integer Primitive prend
+     * une chaîne de caractères et renvoie sa représentation sous
+     * forme d'un entier.
+     *
+     * @param  pubkey     Clef publique RSA pour connaître la largeur
+     *                    du domaine de chiffrement
+     * @param  message    Le message sous forme de string. Si le
+     *                    message est trop long pour être converti en
+     *                    entier dans le domaine de chiffrement (<N), 
+     *                    une erreur "message out of range" est
+     *                    levée. 
+     *
+     * @return  Un entier représentant le message et restituant le
+     *          message original si passé à i2osp.
+     */
+    virtual int_type os2ip(const Rsa_pub_key& pubkey, const std::string& message_part) = 0;
+
+    /** 
+     * La méthode i2osp pour Integer To Octet String Primitive prend
+     * un entier et renvoie le message sous forme de string qu'il
+     * représente.
+     *
+     * @param  privkey       Clef privée RSA pour connaître la largeur
+     *                       du domaine de chiffrement
+     * @param  message_part  Le message sous forme d'un entier. Si le
+     *                       message est trop grand pour être converti en
+     *                       string dans le domaine de chiffrement (<N), 
+     *                       une erreur "message out of range" est
+     *                       levée. 
+     *
+     * @return  Le message original correspondant à la string passée à
+     *          os2ip.
+     */
+    virtual std::string i2osp(const Rsa_priv_key& privkey, const int_type& message_part) = 0;
 
 };
 

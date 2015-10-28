@@ -1,27 +1,26 @@
-/** -*- c-basic-offset: 3 -*- 
- *
- * ENSICAEN
- * 6 Boulevard Maréchal Juin 
- * F-14050 Caen Cedex
+/**
+ * This file is part of myRSA.
  * 
- * Ce fichier est l'oeuvre d'élèves de l'ENSI de Caen. Il ne peut être 
- * reproduit, utilisé ou modifié sans l'avis express de ses auteurs.
+ * myRSA is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  * 
+ * myRSA is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Foobar.  If not, see <http://www.gnu.org/licenses/>. 
  */ 
 
 /**
  * @author Corentin MARCIAU	<corentin@marciau.fr>
- *
- * @version 1.0.0 / 07-10-2015
- * @todo 
- * @bug 
  */
 
 /**
  * @file cipher.cpp
- * @brief 
- *
- * 
  */
 
 #include "rsa/cipher.hpp"
