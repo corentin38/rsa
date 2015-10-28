@@ -1,27 +1,26 @@
-/** -*- c-basic-offset: 3 -*- 
- *
- * ENSICAEN
- * 6 Boulevard Maréchal Juin 
- * F-14050 Caen Cedex
+/**
+ * This file is part of myRSA.
  * 
- * Ce fichier est l'oeuvre d'élèves de l'ENSI de Caen. Il ne peut être 
- * reproduit, utilisé ou modifié sans l'avis express de ses auteurs.
+ * myRSA is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  * 
+ * myRSA is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Foobar.  If not, see <http://www.gnu.org/licenses/>. 
  */ 
 
 /** 
- * @author Corentin MARCIAU	<corentin.marciau@ecole.ensicaen.fr>
- *
- * @version 1.0.0 / 02-09-2015
- * @todo 
- * @bug 
+ * @author Corentin MARCIAU	<corentin@marciau.fr>
  */
 
 /** 
- * @file keys.h
- * @brief 
- *
- * 
+ * @file keys.hpp
  */
 
 #ifndef BASICS_KEYS_HPP
@@ -37,6 +36,10 @@ namespace basics {
 unsigned const rsa_length = 512;
 unsigned const char_size = 8;
 
+/** 
+ * Classe de génération de bi-clef RSA. La génération d'une paire de
+ * clef se fait dans le constructeur. 
+ */
 class Keys {
 
 public:
