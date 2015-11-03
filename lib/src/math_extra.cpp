@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with Foobar.  If not, see <http://www.gnu.org/licenses/>. 
+ * along with myRSA.  If not, see <http://www.gnu.org/licenses/>. 
  */ 
 
 /**
@@ -29,6 +29,17 @@
 
 basics::int_type basics::inverse(basics::int_type e, basics::int_type phi)
 {
+    if (phi <= 0) {
+        std::stringstream err;
+        err << "null or negative phi: " << phi;
+        throw std::runtime_error(err.str());
+    }
+    if (e < 1 || e > (phi - 1)) {
+        std::stringstream err;
+        err << "exponent e is not in range [1;phi-1]: " << e;
+        throw std::runtime_error(err.str());
+    }
+    
     basics::int_type r0=phi, r1=e, u0=1, u1=0, v0=0, v1=1;
     basics::int_type q=0, rs=0, us=0, vs=0;
 
@@ -61,6 +72,16 @@ basics::powModulus(const basics::int_type& base,
     if (mod <= 0) {
         std::stringstream err;
         err << "null or negative modulus: " << mod;
+        throw std::runtime_error(err.str());
+    }
+    if (base < 0) {
+        std::stringstream err;
+        err << "negative base: " << base;
+        throw std::runtime_error(err.str());
+    }
+    if (exp < 0) {
+        std::stringstream err;
+        err << "negative exponent: " << exp;
         throw std::runtime_error(err.str());
     }
 
