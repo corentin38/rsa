@@ -1,0 +1,21 @@
+language: cpp
+sudo: false
+addons:
+  apt:
+    sources:
+      - boost-latest
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-5
+      - libboost1.55-dev
+      - libboost-test1.55-dev
+      - libgmp3-dev
+env:
+  - COMPILER=g++-5
+before_script:
+  - $COMPILER --version
+  - CXX=$COMPILER cmake .
+script:
+  - CXX=$COMPILER make
+after_success:
+  - ./test/runtest
