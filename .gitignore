@@ -1,5 +1,17 @@
+# editor files
 *~
-*.o
-build
 *.kdev4
-doc
+
+# build objects
+*.a
+*.o
+
+# binaries
+main/RSA
+test/runtest
+
+# cmake-generated output
+cmake_install.cmake
+CMakeCache.txt
+CMakeFiles
+Makefile
